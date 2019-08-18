@@ -104,9 +104,9 @@ The final step was to run the simulator to see how well the car was driving arou
 
 Then, I realized that was quite normal. The images were still in `RGB`. So, for the model, the bridge and a regular asphalt road was totally different since they were in different colors. **At that moment, I made my luckiest mistake of this project.** Why not preprocess the images to convert them to grayscale? Now is a  good time to note that I have never recorded any training data that is off the track.
 
-Although working on grayscale images was a little more tidious than I expected (because the scripts were expecting an image array of shape (x,y,3), not (x,y,1)), after changing `drive.py` and `video.py` a little bit, I finally got this video here.
+Although working on grayscale images was a little more tidious than I expected (because the scripts were expecting an image array of shape (x,y,3), not (x,y,1)), after changing `drive.py` and `video.py` a little bit, [I finally got this video here][video3].
 
-Now, how cool is that? I have never shown the model anything about how to drive on the dirt road, but it actually went onto and out of that dirt road with only a bit of a scratch. 
+Now, how cool is that? I have never shown the model anything about how to drive on the dirt road, but it actually went onto and out of that dirt road with only a bit of a scratch. Then I realized, it was really difficult to distinguish the dirt and the asphalt on a grayscale image and that's how the vehicle ended up in the dirt road. So, I unintentionally made a rebellious driver... :sweat_smile:
 
 Then, I tried the `HSV` color space using 1 channel at a time. S-channel was actually good enough to keep the car on the track, but it was oscillating most of the time around the center.
 
@@ -116,9 +116,8 @@ At the end of the process, the vehicle was able to drive autonomously around the
 
 ![Tumbler toy picture][image1]
 
-Here is a 3rd-person-view (compressed) video of it.
+[Here is a 3rd-person-view (compressed) video][video1] of it.
 
-![Intervention video][video1]
 
 #### 2. Final Model Architecture
 
@@ -174,6 +173,7 @@ So, according to the formula,
 I collected 12871 images taken from the center of the vehicle. By augmenting the data and using the left&right camera photos as well:
 
 Left, Right Images = 12871 * 2
+
 Flipped version of all images = 12871 * 3
 
 I ended up with 77226 data points. I then preprocessed this data by cropping 70 pixels from top and 25 pixels from the bottom to remove irrelevant parts of the image. Also, I normalized the data points by getting the mean closer to 0 as 
