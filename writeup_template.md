@@ -18,14 +18,21 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./ReportMedia/placeholder.png "Model Visualization"
-[image2]: ./ReportMedia/placeholder.png "Grayscaling"
-[image3]: ./ReportMedia/placeholder_small.png "Recovery Image"
-[image4]: ./ReportMedia/placeholder_small.png "Recovery Image"
-[image5]: ./ReportMedia/placeholder_small.png "Recovery Image"
-[image6]: ./ReportMedia/placeholder_small.png "Normal Image"
-[image7]: ./ReportMedia/placeholder_small.png "Flipped Image"
-[video1]: ./ReportMedia/project_video.mp4 "Video"
+[image1]: ./ReportMedia/tumblerToy.jpg "Tumbler Toy"
+[image2]: ./ReportMedia/nn-architecture.png "CNN Architecture"
+[image3]: ./ReportMedia/LEFT_ANGLE.gif "Left angle formula"
+[image4]: ./ReportMedia/RIGHT_ANGLE.gif "Right angle formula"
+[image5]: ./ReportMedia/center_lane.jpg "Center Lane"
+[image6]: ./ReportMedia/normal.jpg "Normal Image"
+[image7]: ./ReportMedia/flipped_img.jpg "Flipped Image"
+[image8]: ./ReportMedia/1.jpg "1"
+[image9]: ./ReportMedia/2.jpg "2"
+[image10]: ./ReportMedia/3.jpg "3"
+[image11]: ./ReportMedia/4.jpg "4"
+[video1]: ./ReportMedia/robust.mp4 "Video"
+[video2]: ./ReportMedia/video.mp4 "Video"
+[video3]: ./ReportMedia/grayscale_issue.mp4 "Grayscale issue"
+
 
 
 ## Rubric Points
@@ -41,6 +48,7 @@ My project includes the following files:
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
 * writeup_report.md or writeup_report.pdf summarizing the results
+* video.mp4 - A video recording of my vehicle driving autonomously one lap around the track. Can be found [here][video2]
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -106,11 +114,11 @@ So, I finally went back to `RGB` color space and to fix the recovery issue on th
 
 At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road. And it was staying on the track even when I interfered by driving the car towards the edges. The moment I let it drive autonomously, it would drive towards the center like a tumbler toy.
 
-![Tumbler toy picture][ECB]
+![Tumbler toy picture][image1]
 
-Here is a 3rd-person-view video of it.
+Here is a 3rd-person-view (compressed) video of it.
 
-![InterventionVideo][ECB]
+![Intervention video][video1]
 
 #### 2. Final Model Architecture
 
@@ -131,29 +139,31 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 
 Here is a visualization of the architecture:
 
-![alt text][image1]
+![CNN Architecture][image2]
 
 #### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![Center Lane Driving][image5]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover if it ever ended up on the side of the road. These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover if it ever ended up on the side of the road. These images show what a recovery looks like starting from the right side of the road:
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+![1][image8]
+![2][image9]
+![3][image10]
+![4][image11]
 
-To augment the data set, I also flipped images and angles thinking that this would give the model some hint about the pattern between the image and the steering angle. For example, here is an image that has then been flipped:
+To augment the data set, I also flipped images and angles thinking that this would give the model more 'insight' about the pattern between the image and the steering angle. For example, here is an image that has then been flipped:
 
-![alt text][image6]
-![alt text][image7]
+![Normal Image][image6]
+![Flipped Image][image7]
 
 I also used the left and the right camera images mounted on the vehicle. To pair those images with some steering angle, I came up with below formula consisting of a constant and a trigonometric part:
-![alt text][ECB]
 
-![alt text][ECB]
+![Left formula][image3]
+
+![Right formula][image4]
 
 So, according to the formula,
 1. If CENTER = -1, trigonometric part is -1.
@@ -161,8 +171,14 @@ So, according to the formula,
 3. If CENTER = 1, trigonometric part is 1.
 
 
+I collected 12871 images taken from the center of the vehicle. By augmenting the data and using the left&right camera photos as well:
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+Left, Right Images = 12871 * 2
+Flipped version of all images = 12871 * 3
+
+I ended up with 77226 data points. I then preprocessed this data by cropping 70 pixels from top and 25 pixels from the bottom to remove irrelevant parts of the image. Also, I normalized the data points by getting the mean closer to 0 as 
+
+`x = x/255.0 - 0.5`.
 
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
