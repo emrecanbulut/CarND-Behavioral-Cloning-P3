@@ -112,11 +112,9 @@ Then, I tried the `HSV` color space using 1 channel at a time. S-channel was act
 
 So, I finally went back to `RGB` color space and to fix the recovery issue on the bridge, I just added more training data targeting specifically recovering on the bridge.
 
-At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road. And it was staying on the track even when I interfered by driving the car towards the edges. The moment I let it drive autonomously, it would drive towards the center like a tumbler toy.
+At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road. And it was staying on the track even when I interfered by driving the car towards the edges. The moment I let it drive autonomously, it would drive towards the center like a tumbler toy. [Here is a 3rd-person-view (compressed) video][video1] of it.
 
 ![Tumbler toy picture][image1]
-
-[Here is a 3rd-person-view (compressed) video][video1] of it.
 
 
 #### 2. Final Model Architecture
