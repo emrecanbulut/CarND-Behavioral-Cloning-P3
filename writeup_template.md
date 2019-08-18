@@ -119,7 +119,7 @@ At the end of the process, the vehicle was able to drive autonomously around the
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+I used [Nvidia's Self Driving Car deep learning network architecture](https://devblogs.nvidia.com/deep-learning-self-driving-cars/). The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:
 
 1. Normalization layer
 2. Convolution layer (24, 5, 5)
